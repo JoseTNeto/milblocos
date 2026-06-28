@@ -9,38 +9,227 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as MinhaContaRouteImport } from './routes/minha-conta'
+import { Route as MilLogRouteImport } from './routes/mil-log'
+import { Route as LojaRouteImport } from './routes/loja'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as CarrinhoRouteImport } from './routes/carrinho'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AtacadoRouteImport } from './routes/atacado'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProdutoSlugRouteImport } from './routes/produto.$slug'
+import { Route as LojaCategoryRouteImport } from './routes/loja.$category'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MinhaContaRoute = MinhaContaRouteImport.update({
+  id: '/minha-conta',
+  path: '/minha-conta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MilLogRoute = MilLogRouteImport.update({
+  id: '/mil-log',
+  path: '/mil-log',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LojaRoute = LojaRouteImport.update({
+  id: '/loja',
+  path: '/loja',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarrinhoRoute = CarrinhoRouteImport.update({
+  id: '/carrinho',
+  path: '/carrinho',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AtacadoRoute = AtacadoRouteImport.update({
+  id: '/atacado',
+  path: '/atacado',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProdutoSlugRoute = ProdutoSlugRouteImport.update({
+  id: '/produto/$slug',
+  path: '/produto/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LojaCategoryRoute = LojaCategoryRouteImport.update({
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => LojaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/atacado': typeof AtacadoRoute
+  '/auth': typeof AuthRoute
+  '/carrinho': typeof CarrinhoRoute
+  '/contato': typeof ContatoRoute
+  '/loja': typeof LojaRouteWithChildren
+  '/mil-log': typeof MilLogRoute
+  '/minha-conta': typeof MinhaContaRoute
+  '/sobre': typeof SobreRoute
+  '/loja/$category': typeof LojaCategoryRoute
+  '/produto/$slug': typeof ProdutoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/atacado': typeof AtacadoRoute
+  '/auth': typeof AuthRoute
+  '/carrinho': typeof CarrinhoRoute
+  '/contato': typeof ContatoRoute
+  '/loja': typeof LojaRouteWithChildren
+  '/mil-log': typeof MilLogRoute
+  '/minha-conta': typeof MinhaContaRoute
+  '/sobre': typeof SobreRoute
+  '/loja/$category': typeof LojaCategoryRoute
+  '/produto/$slug': typeof ProdutoSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/atacado': typeof AtacadoRoute
+  '/auth': typeof AuthRoute
+  '/carrinho': typeof CarrinhoRoute
+  '/contato': typeof ContatoRoute
+  '/loja': typeof LojaRouteWithChildren
+  '/mil-log': typeof MilLogRoute
+  '/minha-conta': typeof MinhaContaRoute
+  '/sobre': typeof SobreRoute
+  '/loja/$category': typeof LojaCategoryRoute
+  '/produto/$slug': typeof ProdutoSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/atacado'
+    | '/auth'
+    | '/carrinho'
+    | '/contato'
+    | '/loja'
+    | '/mil-log'
+    | '/minha-conta'
+    | '/sobre'
+    | '/loja/$category'
+    | '/produto/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/atacado'
+    | '/auth'
+    | '/carrinho'
+    | '/contato'
+    | '/loja'
+    | '/mil-log'
+    | '/minha-conta'
+    | '/sobre'
+    | '/loja/$category'
+    | '/produto/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/atacado'
+    | '/auth'
+    | '/carrinho'
+    | '/contato'
+    | '/loja'
+    | '/mil-log'
+    | '/minha-conta'
+    | '/sobre'
+    | '/loja/$category'
+    | '/produto/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AtacadoRoute: typeof AtacadoRoute
+  AuthRoute: typeof AuthRoute
+  CarrinhoRoute: typeof CarrinhoRoute
+  ContatoRoute: typeof ContatoRoute
+  LojaRoute: typeof LojaRouteWithChildren
+  MilLogRoute: typeof MilLogRoute
+  MinhaContaRoute: typeof MinhaContaRoute
+  SobreRoute: typeof SobreRoute
+  ProdutoSlugRoute: typeof ProdutoSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/minha-conta': {
+      id: '/minha-conta'
+      path: '/minha-conta'
+      fullPath: '/minha-conta'
+      preLoaderRoute: typeof MinhaContaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mil-log': {
+      id: '/mil-log'
+      path: '/mil-log'
+      fullPath: '/mil-log'
+      preLoaderRoute: typeof MilLogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loja': {
+      id: '/loja'
+      path: '/loja'
+      fullPath: '/loja'
+      preLoaderRoute: typeof LojaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carrinho': {
+      id: '/carrinho'
+      path: '/carrinho'
+      fullPath: '/carrinho'
+      preLoaderRoute: typeof CarrinhoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/atacado': {
+      id: '/atacado'
+      path: '/atacado'
+      fullPath: '/atacado'
+      preLoaderRoute: typeof AtacadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +237,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/produto/$slug': {
+      id: '/produto/$slug'
+      path: '/produto/$slug'
+      fullPath: '/produto/$slug'
+      preLoaderRoute: typeof ProdutoSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loja/$category': {
+      id: '/loja/$category'
+      path: '/$category'
+      fullPath: '/loja/$category'
+      preLoaderRoute: typeof LojaCategoryRouteImport
+      parentRoute: typeof LojaRoute
+    }
   }
 }
 
+interface LojaRouteChildren {
+  LojaCategoryRoute: typeof LojaCategoryRoute
+}
+
+const LojaRouteChildren: LojaRouteChildren = {
+  LojaCategoryRoute: LojaCategoryRoute,
+}
+
+const LojaRouteWithChildren = LojaRoute._addFileChildren(LojaRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AtacadoRoute: AtacadoRoute,
+  AuthRoute: AuthRoute,
+  CarrinhoRoute: CarrinhoRoute,
+  ContatoRoute: ContatoRoute,
+  LojaRoute: LojaRouteWithChildren,
+  MilLogRoute: MilLogRoute,
+  MinhaContaRoute: MinhaContaRoute,
+  SobreRoute: SobreRoute,
+  ProdutoSlugRoute: ProdutoSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
