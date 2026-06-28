@@ -39,7 +39,7 @@ function Atacado() {
           <li>Nossa equipe analisa e aprova sua conta em até 1 dia útil.</li>
           <li>Pronto: ao logar, a loja já exibirá os preços de atacado.</li>
         </ol>
-        <Link to="/auth" search={{ tab: "signup", type: "pj" } as never} className="mt-6 inline-flex">
+        <Link to="/auth" className="mt-6 inline-flex">
           <Button size="lg" variant="secondary">Abrir conta PJ agora</Button>
         </Link>
       </div>
