@@ -20,6 +20,7 @@ import { Route as AtacadoRouteImport } from './routes/atacado'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProdutoSlugRouteImport } from './routes/produto.$slug'
 import { Route as LojaCategoryRouteImport } from './routes/loja.$category'
+import { Route as ApiPublicBulkImportRouteImport } from './routes/api/public/bulk-import'
 
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
@@ -76,6 +77,11 @@ const LojaCategoryRoute = LojaCategoryRouteImport.update({
   path: '/$category',
   getParentRoute: () => LojaRoute,
 } as any)
+const ApiPublicBulkImportRoute = ApiPublicBulkImportRouteImport.update({
+  id: '/api/public/bulk-import',
+  path: '/api/public/bulk-import',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/sobre': typeof SobreRoute
   '/loja/$category': typeof LojaCategoryRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/api/public/bulk-import': typeof ApiPublicBulkImportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/sobre': typeof SobreRoute
   '/loja/$category': typeof LojaCategoryRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/api/public/bulk-import': typeof ApiPublicBulkImportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/sobre': typeof SobreRoute
   '/loja/$category': typeof LojaCategoryRoute
   '/produto/$slug': typeof ProdutoSlugRoute
+  '/api/public/bulk-import': typeof ApiPublicBulkImportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/loja/$category'
     | '/produto/$slug'
+    | '/api/public/bulk-import'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/loja/$category'
     | '/produto/$slug'
+    | '/api/public/bulk-import'
   id:
     | '__root__'
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/sobre'
     | '/loja/$category'
     | '/produto/$slug'
+    | '/api/public/bulk-import'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -170,6 +182,7 @@ export interface RootRouteChildren {
   MinhaContaRoute: typeof MinhaContaRoute
   SobreRoute: typeof SobreRoute
   ProdutoSlugRoute: typeof ProdutoSlugRoute
+  ApiPublicBulkImportRoute: typeof ApiPublicBulkImportRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LojaCategoryRouteImport
       parentRoute: typeof LojaRoute
     }
+    '/api/public/bulk-import': {
+      id: '/api/public/bulk-import'
+      path: '/api/public/bulk-import'
+      fullPath: '/api/public/bulk-import'
+      preLoaderRoute: typeof ApiPublicBulkImportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -275,6 +295,7 @@ const rootRouteChildren: RootRouteChildren = {
   MinhaContaRoute: MinhaContaRoute,
   SobreRoute: SobreRoute,
   ProdutoSlugRoute: ProdutoSlugRoute,
+  ApiPublicBulkImportRoute: ApiPublicBulkImportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

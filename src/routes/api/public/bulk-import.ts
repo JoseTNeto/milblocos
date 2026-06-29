@@ -29,20 +29,23 @@ export const Route = createFileRoute("/api/public/bulk-import")({
         }
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const rows = (prods as Array<[string, string, string, number, number, number, number]>).map(
-          ([slug, name, sku, cat, retail, wholesale, minQty, peso]: any) => ({
-            slug: slugify(slug) + "-" + Math.random().toString(36).slice(2, 8),
-            name,
-            sku,
-            category_id: CATS[cat] ?? CATS.LA,
-            brand: "Milblocos",
-            unit: "un",
-            retail_price: retail,
-            wholesale_price: wholesale,
-            min_wholesale_qty: minQty,
-            is_own_line: true,
-            in_stock: true,
-            specs: { peso_kg: peso, pecas_palete: minQty },
-          }),
+          (row) => {
+            const [sku, name, cat, retail, wholesale, minQty, peso] = row;
+            return {
+              slug: slugify(sku) + "-" + Math.random().toString(36).slice(2, 8),
+              name,
+              sku,
+              category_id: CATS[cat] ?? CATS.LA,
+              brand: "Milblocos",
+              unit: "un",
+              retail_price: retail,
+              wholesale_price: wholesale,
+              min_wholesale_qty: minQty,
+              is_own_line: true,
+              in_stock: true,
+              specs: { peso_kg: peso, pecas_palete: minQty },
+            };
+          },
         );
 
         // Insert in chunks of 500
