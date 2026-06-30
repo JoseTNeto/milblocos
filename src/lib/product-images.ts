@@ -23,10 +23,12 @@ const byCategory: Record<string, string> = {
   "linha-arquitetura": cobogo,
 };
 
-export function getProductImage(slug: string, categorySlug?: string | null): string {
+export function getProductImage(slug: string, categorySlug?: string | null, imageUrl?: string | null): string {
+  if (imageUrl && imageUrl.trim()) return imageUrl;
   return (
     bySlug[slug] ||
     (categorySlug ? byCategory[categorySlug] : undefined) ||
     blocoEstrutural
   );
 }
+

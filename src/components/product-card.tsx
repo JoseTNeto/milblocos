@@ -17,14 +17,16 @@ export interface ProductCardData {
   wholesale_price: number;
   min_wholesale_qty: number;
   is_own_line: boolean;
+  image_url?: string | null;
   category?: { slug: string; name: string } | null;
 }
 
 export function ProductCard({ product }: { product: ProductCardData }) {
   const { isWholesale } = useAuth();
   const { add } = useCart();
-  const img = getProductImage(product.slug, product.category?.slug);
+  const img = getProductImage(product.slug, product.category?.slug, product.image_url);
   const showWholesale = isWholesale;
+
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-lg border bg-card shadow-card transition hover:shadow-lift">
