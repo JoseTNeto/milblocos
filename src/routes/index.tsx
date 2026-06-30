@@ -26,7 +26,7 @@ function Home() {
     queryFn: async (): Promise<ProductCardData[]> => {
       const { data, error } = await supabase
         .from("products")
-        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, category:categories(slug, name)")
+        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, image_url, category:categories(slug, name)")
         .eq("featured", true)
         .limit(8);
       if (error) throw error;

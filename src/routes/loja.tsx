@@ -36,7 +36,7 @@ function LojaLayout() {
     queryFn: async (): Promise<ProductCardData[]> => {
       const { data, error } = await supabase
         .from("products")
-        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, category:categories(slug, name)")
+        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, image_url, category:categories(slug, name)")
         .ilike("name", `%${q}%`)
         .limit(24);
       if (error) throw error;
@@ -107,7 +107,7 @@ function AllProducts() {
     queryFn: async (): Promise<ProductCardData[]> => {
       const { data, error } = await supabase
         .from("products")
-        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, category:categories(slug, name)")
+        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, image_url, category:categories(slug, name)")
         .order("created_at", { ascending: false });
       if (error) throw error;
       return (data as unknown as ProductCardData[]) ?? [];

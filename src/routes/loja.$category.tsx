@@ -20,7 +20,7 @@ function CategoryPage() {
       const { data: cat } = await supabase.from("categories").select("*").eq("slug", category).maybeSingle();
       const { data: products, error } = await supabase
         .from("products")
-        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, category:categories(slug, name)")
+        .select("id, slug, name, brand, unit, retail_price, wholesale_price, min_wholesale_qty, is_own_line, image_url, category:categories(slug, name)")
         .eq("category_id", cat?.id ?? "00000000-0000-0000-0000-000000000000")
         .order("name");
       if (error) throw error;
