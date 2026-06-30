@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { formatBRL } from "@/lib/format";
 import { getProductImage } from "@/lib/product-images";
+import { ProductGallery } from "@/components/product-gallery";
+
 import { ShoppingCart, Truck, ShieldCheck, ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/produto/$slug")({
