@@ -48,9 +48,12 @@ function ProductPage() {
         <ArrowLeft className="h-4 w-4" /> Voltar à loja
       </Link>
       <div className="grid gap-10 md:grid-cols-2">
-        <div className="aspect-square overflow-hidden rounded-xl border bg-secondary">
-          <img src={getProductImage(p.slug, p.category?.slug)} alt={p.name} width={800} height={800} className="h-full w-full object-cover" />
-        </div>
+        <ProductGallery
+          mainSrc={getProductImage(p.slug, p.category?.slug, p.image_url)}
+          gallery={Array.isArray((p.specs as { gallery?: unknown })?.gallery) ? ((p.specs as { gallery: string[] }).gallery) : []}
+          alt={p.name}
+        />
+
         <div>
           <div className="flex items-center gap-2 mb-2">
             {p.is_own_line ? <Badge className="bg-primary text-primary-foreground">Linha própria Milblocos</Badge> : <Badge variant="secondary">{p.brand}</Badge>}
