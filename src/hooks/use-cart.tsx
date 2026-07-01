@@ -15,6 +15,7 @@ export interface CartLine {
     retail_price: number;
     wholesale_price: number;
     min_wholesale_qty: number;
+    image_url: string | null;
     category: { slug: string } | null;
   };
 }
@@ -30,7 +31,7 @@ export function useCart() {
       const { data, error } = await supabase
         .from("cart_items")
         .select(
-          "id, product_id, quantity, product:products(id, slug, name, unit, retail_price, wholesale_price, min_wholesale_qty, category:categories(slug))"
+          "id, product_id, quantity, product:products(id, slug, name, unit, retail_price, wholesale_price, min_wholesale_qty, image_url, category:categories(slug))"
         )
         .eq("user_id", user!.id);
       if (error) throw error;
