@@ -44,7 +44,7 @@ function CartPage() {
             const price = useWs ? l.product.wholesale_price : l.product.retail_price;
             return (
               <li key={l.id} className="flex gap-4 p-4">
-                <img src={getProductImage(l.product.slug, l.product.category?.slug)} alt={l.product.name} className="h-24 w-24 rounded object-cover bg-secondary" width={96} height={96} />
+                <img src={getProductImage(l.product.slug, l.product.category?.slug, l.product.image_url)} alt={l.product.name} className="h-24 w-24 rounded object-cover bg-secondary" width={96} height={96} />
                 <div className="flex-1 min-w-0">
                   <Link to="/produto/$slug" params={{ slug: l.product.slug }} className="font-semibold hover:text-primary line-clamp-2">{l.product.name}</Link>
                   <p className="text-xs text-muted-foreground">{formatBRL(price)} / {l.product.unit} {useWs && "· atacado"}</p>

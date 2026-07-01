@@ -10,6 +10,7 @@ import { useState } from "react";
 import { formatBRL } from "@/lib/format";
 import { getProductImage } from "@/lib/product-images";
 import { ProductGallery } from "@/components/product-gallery";
+import { parseSku, formatDims } from "@/lib/sku-parser";
 
 import { ShoppingCart, Truck, ShieldCheck, ArrowLeft } from "lucide-react";
 
@@ -64,7 +65,37 @@ function ProductPage() {
           <h1 className="text-3xl font-bold">{p.name}</h1>
           {p.sku && <p className="text-xs text-muted-foreground mt-1">SKU {p.sku}</p>}
 
-          <p className="mt-4 text-muted-foreground">{p.description}</p>
+          {p.description && <p className="mt-4 text-muted-foreground">{p.description}</p>}
+
+          {(() => {
+            const parsed = parseSku(p.sku);
+            const dims = formatDims(parsed.dimsRaw);
+            const specs = (p.specs ?? {}) as Record<string, unknown>;
+            const peso = specs.peso_kg;
+            const pecasPalete = specs.pecas_palete;
+            const rows: Array<[string, string]> = [];
+            if (parsed.tipoLabel) rows.push(["Categoria", parsed.tipoLabel]);
+            if (dims) rows.push(["Dimensões", dims]);
+            if (parsed.classe) rows.push(["Classe", parsed.classe]);
+            if (parsed.resistencia) rows.push(["Resistência", parsed.resistencia]);
+            if (parsed.norma) rows.push(["Norma", parsed.norma]);
+            if (typeof peso === "number") rows.push(["Peso unitário", `${peso} kg`]);
+            if (typeof pecasPalete === "number") rows.push(["Peças por palete", String(pecasPalete)]);
+            if (rows.length === 0) return null;
+            return (
+              <div className="mt-6 rounded-lg border bg-card p-5">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-3">Ficha técnica</h2>
+                <dl className="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+                  {rows.map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-3 border-b border-dashed border-border/60 py-1">
+                      <dt className="text-muted-foreground">{k}</dt>
+                      <dd className="font-medium text-right">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            );
+          })()}
 
           <div className="mt-6 rounded-lg border p-5 bg-card">
             {isWholesale ? (
