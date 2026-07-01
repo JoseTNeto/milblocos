@@ -10,6 +10,7 @@ import { useState } from "react";
 import { formatBRL } from "@/lib/format";
 import { getProductImage } from "@/lib/product-images";
 import { ProductGallery } from "@/components/product-gallery";
+import { parseSku, formatDims } from "@/lib/sku-parser";
 
 import { ShoppingCart, Truck, ShieldCheck, ArrowLeft } from "lucide-react";
 
