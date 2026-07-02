@@ -1,6 +1,9 @@
 // Parse the internal SKU pattern used by Milblocos own line:
-// MLB*<TIPO>*<DIMS>*<CLASSE>*<RESISTENCIA MPA>*<NT-X>
+// MLB*<TIPO>*<DIMS>*<CLASSE>*<RESISTENCIA MPA>*<COR-DV>
 // Ex: MLB*EST*140190390*A*8 MPA*NT-3
+// - <COR> = código da cor (NT=Natural, AZ=Azul...)
+// - <DV>  = dígito verificador (não é técnico, não exibir)
+// A Norma técnica é definida pelo tipo do produto (não pelo SKU).
 
 const TIPO_LABELS: Record<string, string> = {
   EST: "Estrutural",
@@ -27,12 +30,46 @@ const TIPO_LABELS: Record<string, string> = {
   MAR: "Marco",
   CRS: "Crescente",
   PSG: "Passeio",
-  ABN: "Abertura",
+  ABN: "Abobadilha",
   IEL: "Item elétrico",
   PST: "Poste",
   TMF: "Tubo macho x fêmea",
   TPB: "Tubo ponta e bolsa",
 };
+
+const COR_LABELS: Record<string, string> = {
+  NT: "Natural",
+  AZ: "Azul",
+  VM: "Vermelho",
+  OC: "Ocre",
+  VD: "Verde",
+  AM: "Amarelo",
+  GF: "Grafite",
+  MR: "Marrom",
+  RS: "Rosa",
+  BR: "Branco",
+  PR: "Preto",
+  CZ: "Cinza",
+};
+
+// Famílias que seguem cada norma técnica brasileira.
+const NORMA_BLOCOS = new Set(["EST", "VED", "APA", "CST", "MUF", "CPV", "ABN", "COL"]);
+const NORMA_PAVERS = new Set(["PLV", "SEX", "TRD", "LJT", "PPS", "PDT", "MEL", "PSG"]);
+const NORMA_TUBOS = new Set(["TMF", "TPB", "IHD"]);
+
+export function getNorma(tipo: string | null | undefined, categorySlug?: string | null): string | null {
+  if (tipo) {
+    if (NORMA_BLOCOS.has(tipo)) return "NBR 6136";
+    if (NORMA_PAVERS.has(tipo)) return "NBR 9781";
+    if (NORMA_TUBOS.has(tipo)) return "NBR 8890";
+  }
+  if (categorySlug) {
+    if (categorySlug.includes("bloco") || categorySlug === "linha-arquitetura") return "NBR 6136";
+    if (categorySlug === "pavers") return "NBR 9781";
+    if (categorySlug === "drenagem-saneamento") return "NBR 8890";
+  }
+  return null;
+}
 
 export interface ParsedSku {
   prefixo: string | null;
@@ -41,15 +78,22 @@ export interface ParsedSku {
   dimsRaw: string | null;
   classe: string | null;
   resistencia: string | null;
-  norma: string | null;
+  corCodigo: string | null;
+  corLabel: string | null;
 }
 
 export function parseSku(sku: string | null | undefined): ParsedSku {
-  const empty: ParsedSku = { prefixo: null, tipo: null, tipoLabel: null, dimsRaw: null, classe: null, resistencia: null, norma: null };
+  const empty: ParsedSku = { prefixo: null, tipo: null, tipoLabel: null, dimsRaw: null, classe: null, resistencia: null, corCodigo: null, corLabel: null };
   if (!sku) return empty;
   const parts = sku.split("*").map((s) => s.trim()).filter(Boolean);
   if (parts.length < 2) return empty;
-  const [prefixo, tipo, dimsRaw, classe, resistencia, norma] = parts;
+  const [prefixo, tipo, dimsRaw, classe, resistencia, corRaw] = parts;
+  // corRaw exemplo: "NT-9" (cor + dígito verificador). Descartamos o DV.
+  let corCodigo: string | null = null;
+  if (corRaw) {
+    const m = corRaw.match(/^([A-Za-z]{2,3})/);
+    corCodigo = m ? m[1].toUpperCase() : null;
+  }
   return {
     prefixo: prefixo ?? null,
     tipo: tipo ?? null,
@@ -57,7 +101,8 @@ export function parseSku(sku: string | null | undefined): ParsedSku {
     dimsRaw: dimsRaw ?? null,
     classe: classe ?? null,
     resistencia: resistencia ?? null,
-    norma: norma ?? null,
+    corCodigo,
+    corLabel: corCodigo ? COR_LABELS[corCodigo] ?? corCodigo : null,
   };
 }
 
