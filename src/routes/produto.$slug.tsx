@@ -78,7 +78,9 @@ function ProductPage() {
             if (dims) rows.push(["Dimensões", dims]);
             if (parsed.classe) rows.push(["Classe", parsed.classe]);
             if (parsed.resistencia) rows.push(["Resistência", parsed.resistencia]);
-            if (parsed.norma) rows.push(["Norma", parsed.norma]);
+            if (parsed.corLabel) rows.push(["Cor", parsed.corLabel]);
+            const norma = getNorma(parsed.tipo, p.category?.slug);
+            if (norma) rows.push(["Norma", norma]);
             if (typeof peso === "number") rows.push(["Peso unitário", `${peso} kg`]);
             if (typeof pecasPalete === "number") rows.push(["Peças por palete", String(pecasPalete)]);
             if (rows.length === 0) return null;
