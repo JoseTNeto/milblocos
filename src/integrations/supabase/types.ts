@@ -328,6 +328,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_order: {
+        Args: { _address: Json; _items: Json; _notes?: string }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
