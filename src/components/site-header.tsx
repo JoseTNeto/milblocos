@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ShoppingCart, User, Menu, Search } from "lucide-react";
 import { useState } from "react";
-import logo from "@/assets/milblocos-logo.asset.json";
+import logo from "@/assets/logotipo-milblocos.jpg";
 import { useAuth } from "@/hooks/use-auth";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,7 @@ export function SiteHeader() {
 
       <div className="container-page flex h-20 items-center gap-6">
         <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logo.url} alt="Milblocos Inc." className="h-12 w-auto" width={48} height={48} />
+          <img src={logotipo} alt="Milblocos Inc." className="h-12 w-auto" width={48} height={48} />
           <div className="hidden md:block leading-tight">
             <div className="font-bold text-lg text-primary-deep">MILBLOCOS</div>
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Indústria · Loja · Logística</div>
