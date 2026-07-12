@@ -18,7 +18,7 @@ function MilLog() {
         <img src={frota} alt="" width={1600} height={900} className="absolute inset-0 -z-10 h-[480px] w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-primary-deep/75 h-[480px]" />
         <div className="container-page py-24 text-primary-foreground">
-          <img src={milLog.url} alt="Mil-Log" className="h-28 w-auto mb-4" width={112} height={112} />
+          <img src={milLogLogo} alt="Mil-Log" className="h-28 w-auto mb-4" width={112} height={112} />
           <h1 className="text-4xl md:text-5xl font-bold">Mil-Log · Logística em movimento</h1>
           <p className="mt-3 max-w-xl text-lg text-primary-foreground/85">
             A operação logística própria que faz a Milblocos chegar ao canteiro de obras no prazo.
