@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import frota from "@/assets/frota-mil-log.jpg";
-import milLog from "@/assets/mil-log-logo.asset.json";
+import milLogLogo from "@/assets/logo-mil-log.png";
 import { Truck, Package, MapPin, Clock } from "lucide-react";
 
 export const Route = createFileRoute("/mil-log")({
